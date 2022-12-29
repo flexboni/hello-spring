@@ -5,13 +5,16 @@ import java.util.Optional;
 
 import hello.hellospring.domain.Member;
 import hello.hellospring.repository.MemberRepository;
-import hello.hellospring.repository.MemoryMemberRepository;
 
 /**
  * MemberService
  */
 public class MemberService {
-    private final MemberRepository repository = new MemoryMemberRepository();
+    private final MemberRepository repository;
+
+    public MemberService(MemberRepository repository) {
+        this.repository = repository;
+    }
 
     public Long join(Member member) {
         validateDuplicatedMember(member);
@@ -34,4 +37,5 @@ public class MemberService {
     public Optional<Member> findMember(Long id) {
         return repository.findById(id);
     }
+
 }
